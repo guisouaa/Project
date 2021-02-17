@@ -1,0 +1,118 @@
+def game():
+    import random
+    #from replit import clear
+    #from art import logo
+
+    #print(logo)
+
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+    player_one = []
+    computer = []
+    hand_player = 0
+    hand_pc = 0
+
+    def drawn_cards():
+        card_one = random.choice(cards)
+        player_one.append(card_one)
+        card_two = random.choice(cards)
+        player_one.append(card_two)
+        print(f"This is your hand: {player_one}")
+
+        card_one = random.choice(cards)
+        computer.append(card_one)
+        card_two = random.choice(cards)
+        print(f"This is PC's hand: {computer}")
+        computer.append(card_two)
+        #print(computer)
+        
+    def check_hands():
+        hand_player = 0
+        hand_pc = 0
+        for n in player_one:
+            hand_player += n
+        #print(hand_player)
+        
+        for n in computer:
+            hand_pc += n
+        #print(hand_pc)
+        
+        if hand_player == 21 and hand_pc == 21:
+            print("It's a draw!")
+        elif hand_player == 21:
+            print("You have won")
+        elif hand_pc == 21:
+            print("Computer has won the game!")
+        else:
+            should_continue = True
+            
+            give_cards = input("do you want to pick another card? 'Yes' or 'No'? \n").lower()
+            if give_cards == "yes":
+                while should_continue:
+                    if give_cards == "yes":
+                        player_one.append(random.choice(cards))
+                        print(player_one)
+                        hand_player = 0
+                        for n in player_one:
+                            hand_player += n
+                        print(f"Your total hand is {hand_player}")
+                        if hand_player == 21:
+                            print("you have won!")
+                        elif hand_player > 21:
+                            print("You have lost the game!")
+                            should_continue = False
+                            return
+                        else:
+                            if input("Do you want to pick another cards? 'Yes' or 'No'? ").lower() == "yes":
+                                continue
+                            else:
+                                should_continue = False
+            
+            else:
+                hand_pc = 0
+                for n in computer:
+                    hand_pc += n
+                #print(hand_pc)
+                while hand_pc < 17:
+                    computer.append(random.choice(cards))
+                    hand_pc = 0
+                    for n in computer:
+                        hand_pc += n
+
+        print(f"Your final hand is {hand_player}")                
+        print(f"The Computer's final hand is {hand_pc}")
+
+
+        if hand_pc > 21:
+            print("You have won!")    
+        elif hand_player < 21 and hand_player >hand_pc:
+            print("You have won!")
+        elif hand_pc == 21 and hand_player != 21:
+          print("You have lost!")
+        elif hand_pc < 21 and hand_pc >hand_player:
+            print("You have lost!")
+        elif hand_player == hand_pc:
+            print("it's a draw!")
+
+     
+     
+     
+    def play_again():
+        if input("Do you want to play again? 'Yes' or 'No'? \n") == "yes":
+            #print(logo)
+            #clear()
+            game()
+        else:
+            clear()
+        
+        
+        
+                       
+                    
+    drawn_cards()
+
+    check_hands()
+    
+    play_again()
+
+game()
